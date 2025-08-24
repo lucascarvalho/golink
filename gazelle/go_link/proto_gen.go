@@ -55,7 +55,7 @@ func (x *xlang) GenerateRules(args language.GenerateArgs) language.GenerateResul
 	imports := make([]interface{}, 0)
 
 	for _, r := range args.OtherGen {
-		if r.Kind() == "go_proto_library" {
+		if r.Kind() == "go_proto_library" || r.Kind() == "gateway_grpc_library" {
 			depName := r.Name()
 			r := rule.NewRule("go_proto_link", r.Name()+"_link")
 			r.SetAttr("dep", ":"+depName)
