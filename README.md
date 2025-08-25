@@ -20,7 +20,7 @@ To use Protolink, add it as a dependency in your Bazel workspace.
 Add the following to your `MODULE.bazel` file to include Protolink as a dependency and override it with the specific commit from the forked repository:
 
 ```bazel
-bazel_dep(name = "protolink", version = "2.0.0")
+bazel_dep(name = "protolink", version = "0.0.1")
 git_override(
     module_name = "protolink",
     commit = "LATEST_COMMIT",
