@@ -1,6 +1,6 @@
 # Protolink
 
-Protolink is a Bazel utility forked from https://github.com/tailscale/golink for linking protocol buffer (protobuf) generated source files into your project directory. This tool simplifies workflows by copying generated files for Go (via `rules_go` and `gazelle`), gRPC-Gateway Swagger files (via `grpc-gateway`), and TypeScript (via `rules_js`) into your source directory. This is particularly useful for ensuring IDEs can resolve imports for generated files, which are often inaccessible in Bazel's default output structure.
+Protolink is a Bazel utility forked from https://github.com/nikunjy/golink for linking protocol buffer (protobuf) generated source files into your project directory. This tool simplifies workflows by copying generated files for Go (via `rules_go` and `gazelle`), gRPC-Gateway Swagger files (via `grpc-gateway`), and TypeScript (via `rules_js`) into your source directory. This is particularly useful for ensuring IDEs can resolve imports for generated files, which are often inaccessible in Bazel's default output structure.
 
 > **Note**: Protolink is a temporary workaround for IDE compatibility issues with Bazel-generated protobuf files. More robust solutions may emerge in the future.
 
