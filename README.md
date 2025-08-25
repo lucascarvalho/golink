@@ -23,7 +23,7 @@ Add the following to your `MODULE.bazel` file to include Protolink as a dependen
 bazel_dep(name = "protolink", version = "2.0.0")
 git_override(
     module_name = "protolink",
-    commit = "cee4de726f5e27f7cbfc307b7e033dd2e00f0ca2",
+    commit = "LATEST_COMMIT",
     remote = "https://github.com/lucascarvalho/golink.git",
 )
 ```
