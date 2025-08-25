@@ -1,5 +1,28 @@
 load("@bazel_skylib//lib:shell.bzl", "shell")
-load("//:golink.bzl", "gen_copy_files_script")
+
+def gen_copy_files_script(ctx, files):
+    content = ""
+    for f in files:
+        line = "cp -f %s %s/;\n" % (f.path, ctx.attr.dir)
+        content += line
+    substitutions = {
+        "@@CONTENT@@": shell.quote(content),
+    }
+    out = ctx.actions.declare_file(ctx.label.name + ".sh")
+    ctx.actions.expand_template(
+        template = ctx.file._template,
+        output = out,
+        substitutions = substitutions,
+        is_executable = True,
+    )
+    runfiles = ctx.runfiles(files = files)
+    return [
+        DefaultInfo(
+            files = depset([out]),
+            runfiles = runfiles,
+            executable = out,
+        ),
+    ]
 
 def go_proto_link_impl(ctx, **kwargs):
     all_files = []
@@ -25,7 +48,7 @@ def go_proto_link_impl(ctx, **kwargs):
 
     return gen_copy_files_script(ctx, files)
 
-_go_proto_link = rule(
+_proto_link = rule(
     implementation = go_proto_link_impl,
     attrs = {
         "dir": attr.string(),
@@ -39,13 +62,13 @@ _go_proto_link = rule(
     },
 )
 
-def go_proto_link(name, **kwargs):
+def proto_link(name, **kwargs):
     if not "dir" in kwargs:
         dir = native.package_name()
         kwargs["dir"] = dir
 
     gen_rule_name = "%s_copy_gen" % name
-    _go_proto_link(name = gen_rule_name, **kwargs)
+    _proto_link(name = gen_rule_name, **kwargs)
 
     
     native.sh_binary(
