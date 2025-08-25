@@ -28,7 +28,7 @@ def go_proto_link_impl(ctx, **kwargs):
     all_files = []
     for dep in ctx.attr.deps:
         if hasattr(dep[OutputGroupInfo], 'go_generated_srcs'):
-            all_files = dep[OutputGroupInfo].go_generated_srcs.to_list()
+            all_files = all_files + dep[OutputGroupInfo].go_generated_srcs.to_list()
 
         # Check for runfiles property and filter out directories
         if hasattr(dep[OutputGroupInfo], 'runfiles'):
